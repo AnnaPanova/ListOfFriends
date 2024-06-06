@@ -8,13 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var name: String = ""
+    @State var listOfFriends: [String] = []
+    
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            TextField("name of friend", text:$name )
+                .textFieldStyle(.roundedBorder)
+                .border(.black)
+            
+            // taping finisched, we pusch name into listOfFriends
+                .onSubmit {
+                    listOfFriends.append(name)
+                    name = ""
+                }
+            Spacer()
+            List(listOfFriends, id: \.self) { name in
+                Text(name)
+            }
         }
+       
         .padding()
     }
 }
